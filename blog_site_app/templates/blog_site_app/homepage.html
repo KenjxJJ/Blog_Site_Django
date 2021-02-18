@@ -18,20 +18,8 @@
                     <!-- Post title -->
                     <h2 class="card-title py-2">{{ post.title }}</h2>
                     <!-- Text Summary -->
-                    <p class="card-text mb-2">{{ post.text }}</p>
-
-                    <!-- Visible to logged-in users -->
-                    <!-- <div class="mx-2 d-flex flex-row flex-nowrap justify-content-between align-items-center">
-                        <section class="like-section">
-                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                            <a href="#" class="btn my-2">Like</a>
-                        </section>
-
-                        <section class="comment-section">
-                            <i class="fa fa-comment-o" aria-hidden="true"></i>
-                            <a href="#" class="btn my-2">Comment</a>
-                        </section>
-                    </div> -->
+                    <p class="card-text mb-2">{{ post.text | slice:":200" }}</p>
+                    <a href="{% url 'post_detail' post.slug %}" class="btn nav-link">Read More &rarr;</a>
                 </div>
                 <div class="card-footer text-muted">
                     Posted on {{ post.published_date }} by
