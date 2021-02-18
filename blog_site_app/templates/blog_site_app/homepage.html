@@ -1,0 +1,45 @@
+{% extends 'blog_site_app/base.html' %}
+
+{% block content %}
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+            <h1 class="my-4 display-4">
+                <span class="brand-name">Blog</span> Time
+                <small class="lead"> Love to share!</small>
+            </h1>
+
+            <!-- Blog Post -->
+            {% for post in blogpost_list %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <!-- Post title -->
+                    <h2 class="card-title py-2">{{ post.title }}</h2>
+                    <!-- Text Summary -->
+                    <p class="card-text mb-2">{{ post.text }}</p>
+
+                    <!-- Visible to logged-in users -->
+                    <!-- <div class="mx-2 d-flex flex-row flex-nowrap justify-content-between align-items-center">
+                        <section class="like-section">
+                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                            <a href="#" class="btn my-2">Like</a>
+                        </section>
+
+                        <section class="comment-section">
+                            <i class="fa fa-comment-o" aria-hidden="true"></i>
+                            <a href="#" class="btn my-2">Comment</a>
+                        </section>
+                    </div> -->
+                </div>
+                <div class="card-footer text-muted">
+                    Posted on {{ post.published_date }} by
+                    <span class="text-primary">{{ post.author }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

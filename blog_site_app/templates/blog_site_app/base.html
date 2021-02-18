@@ -1,0 +1,61 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Blog Time - Live Sharing!</title>
+    <!-- CSS Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- Font Awesome  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    {% load static %}
+
+    <!-- Custom Font -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static '/css/blog.css' %}">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="container navbar nav-dark d-flex justify-content-end align-items-center flex-row flex-nowrap">
+        <span class="mr-auto pl-3 lead">
+            <a class="nav-link" href="{% url 'home' %}"> Home </a></span>
+
+        <!-- Add this for the loggin user -->
+        <!-- <span class="pr-3"> Welcome, username </span> -->
+        <span class="py-3 mr-2">
+            <a class="nav-link" href="#">Create Account
+            </a>
+        </span>
+        <span class="py-3 mr-3">
+            <a class="login-btn" href="#">Log In
+            </a>
+        </span>
+    </nav>
+
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-8">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-5 ">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Blog Time</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
