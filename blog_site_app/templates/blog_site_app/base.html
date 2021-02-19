@@ -23,8 +23,9 @@
 </head>
 
 <body>
+    <div class="nav border-bottom">
     <!-- Navigation -->
-    <nav class="container navbar nav-dark d-flex justify-content-end align-items-center flex-row flex-nowrap">
+    <nav class=" container navbar nav-dark d-flex justify-content-end align-items-center flex-row flex-nowrap">
         <span class="mr-auto pl-3 lead">
             <a class="nav-link" href="{% url 'home' %}"> Home </a></span>
 
@@ -35,11 +36,11 @@
             </a>
         </span>
         <span class="py-3 mr-3">
-            <a class="login-btn" href="#">Log In
+            <a class="login-btn" href="{% url 'login' %}">Log In
             </a>
         </span>
     </nav>
-
+    </div>
     <div class="content container">
         <div class="row">
             <div class="col-md-8 col-lg-12">

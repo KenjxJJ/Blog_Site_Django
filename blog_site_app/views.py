@@ -45,7 +45,7 @@ def blogpost_detail(request, slug):
             'new_comment' : new_comment,
             'comment_form': comment_form })
 
-
+#  Create account page
 def create_account(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -59,4 +59,21 @@ def create_account(request):
     else:
         form = UserCreationForm()
     return render(request, 'blog_site_app/create_account.html', {'form': form })
+
+#  Login functionality
+def login_page(request):
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    user = authenticate(request, username=username, password=password)
+    
+    if user is not None:
+        login(request, user)
+        # Redirect to a success page.
+        return render(request,'blog_site_app/homepage.html', { 'user': user })        
+    else:  
+        if request.method == "POST":
+            context = { 'message': 'Please login with right credentials' }
+            return render(request, 'blog_site_app/login.html', context = context )       
+        return render(request,'blog_site_app/login.html')
+            
 
