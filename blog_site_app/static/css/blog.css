@@ -37,6 +37,7 @@ h3 {
   color: brown;
 }
 
+/*  Form formatting */
 p input,
 p textarea {
   padding: 9px;
@@ -78,12 +79,34 @@ p button[type="submit"] {
   font-size: 14px;
   color: #ffffff;
 }
- button.btn {
+button.btn {
   background: brown !important;
   border: none;
   padding: 0.3rem 0.9rem !important;
 }
 
+/* 
+*  Create Account Page
+*/
+p > span.helptext,
+.form ul > li {
+  font-size: 0.8rem !important;
+  font-style: italic;
+  color: #969600;
+  padding-left: 0.4rem;
+}
+.form ul > li {
+  list-style-type: square;
+}
+
+.form  ul.errorlist li{
+  list-style-type: none;
+  color: rgba(255, 0, 0, 0.747);
+  margin-left: -2.4rem;
+  font-weight: 600;
+  font-size: 1rem !important;
+
+}
 footer {
   margin-top: 2rem;
   color: rgb(14, 14, 14);

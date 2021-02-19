@@ -1,7 +1,9 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from .models import BlogPost
 from .forms import CommentForm
 from django.views import generic
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 
@@ -42,3 +44,19 @@ def blogpost_detail(request, slug):
             'comments' : comments,
             'new_comment' : new_comment,
             'comment_form': comment_form })
+
+
+def create_account(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            user_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=user_password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'blog_site_app/create_account.html', {'form': form })
+
