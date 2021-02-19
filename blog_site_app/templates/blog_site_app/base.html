@@ -29,8 +29,13 @@
         <span class="mr-auto pl-3 lead">
             <a class="nav-link" href="{% url 'home' %}"> Home </a></span>
 
-        <!-- Add this for the loggin user -->
-        <!-- <span class="pr-3"> Welcome, username </span> -->
+        {% if user.is_authenticated %}
+        <span class="pr-3"> {{ user.username }}</span>
+        <span class="py-3 mr-3">
+            <a class="login-btn" href="{% url 'logout' %}">Log Out
+            </a>
+        </span>
+        {% else %}
         <span class="py-3 mr-2">
             <a class="nav-link" href="{% url 'create_account' %}">Create Account
             </a>
@@ -39,6 +44,7 @@
             <a class="login-btn" href="{% url 'login' %}">Log In
             </a>
         </span>
+        {% endif %}
     </nav>
     </div>
     <div class="content container">
