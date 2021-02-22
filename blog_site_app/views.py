@@ -132,3 +132,9 @@ def single_user_blog_posts(request):
     return render(request, template_name, {
         'blogpost_list': queryset
     })
+
+# Remove blog post
+def blog_post_remove(request, slug):
+    blog_post = get_object_or_404(BlogPost, slug=slug)
+    blog_post.delete()
+    return redirect('my_blog_posts')

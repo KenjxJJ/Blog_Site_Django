@@ -11,6 +11,9 @@
                 <p class=" text-muted pb-3">{{ blog_post.author }} | {{ blog_post.published_date }}</p>
                 <p class="card-text ">{{ blog_post.text | safe }}</p>
             </div>
+            {% if user.is_authenticated and  blog_post.author == request.user %}
+            <a class="pt-2 pb-3 text-center text-danger" href="{% url 'blog_post_remove' blog_post.slug %}">Remove</a>
+            {% endif %}
         </div>
         <div class="comment-section col-md-4 ml-5">
             <h2 class="lead py-3">{{ comments.count }} comments
