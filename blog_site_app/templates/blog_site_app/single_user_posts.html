@@ -15,10 +15,9 @@
             <!-- for authenticated users  -->
             {% if user.is_authenticated %}
             <div class="d-flex justify-content-end">
-                <a class="nav-link pr-0" style="text-decoration: underline;"
-                title="Click to see all your blog posts" href="{% url 'my_blog_posts' %}">
-                    <i class="fa fa-book"></i>
-                    My Blogs</a>
+                <a class="nav-link pr-0" style="text-decoration: underline;" href="{% url 'new_blog_post' %}">
+                    <i class="fa fa-plus"></i>
+                    Add New Blog</a>
             </div>
             {% endif %}
 

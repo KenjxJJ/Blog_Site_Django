@@ -12,9 +12,9 @@
                 <p class="card-text ">{{ blog_post.text | safe }}</p>
             </div>
         </div>
-        <div class="comment-section col-md-4 ml-5">            
+        <div class="comment-section col-md-4 ml-5">
             <h2 class="lead py-3">{{ comments.count }} comments
-                </h2>
+            </h2>
             {% for comment in comments %}
             <div class="comments border-bottom mb-2">
                 <p class="font-weight-bold">
@@ -32,12 +32,14 @@
                     Your comment is awaiting moderation
                 </div>
                 {% else %}
+                {% if user.is_authenticated %}
                 <h3 class="py-4">Leave a comment</h3>
                 <form class="form" method="post">
                     {{ comment_form.as_p }}
                     {% csrf_token %}
                     <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
                 </form>
+                {% endif %}
                 {% endif %}
             </div>
         </div>

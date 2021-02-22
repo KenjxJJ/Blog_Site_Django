@@ -1,3 +1,4 @@
+from django.http import request
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import BlogPost
 from .forms import CommentForm, ProfileForm, UserForm, BlogPostForm
@@ -121,3 +122,13 @@ def add_new_blog_post(request):
 
     return render(request, "blog_site_app/add_new_blog_post.html",
      {'new_blog_post': new_blog_post_form})
+
+
+#  Retrieve all single posts based on single user
+def single_user_blog_posts(request):
+    queryset = BlogPost.objects.filter(author=request.user).order_by('-published_date')
+    template_name = 'blog_site_app/single_user_posts.html'
+
+    return render(request, template_name, {
+        'blogpost_list': queryset
+    })
