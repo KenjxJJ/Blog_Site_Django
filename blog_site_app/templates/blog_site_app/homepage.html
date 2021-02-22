@@ -23,13 +23,18 @@
 
             <!-- Blog Post -->
             {% for post in blogpost_list %}
-            <div class="card mb-4">
-                <div class="card-body">
+            <div class="card mb-4 shadow">
+                <div class="">
                     <!-- Post title -->
-                    <h2 class="card-title py-2">{{ post.title }}</h2>
+                    <div class="d-flex px-1 justify-content-between align-items-center" style="height: 220px; 
+                        background-image: url('{{ MEDIA_URL}}images/{{ post.blog_image_post }}')" />
+                        <h2 class="post-title card-title text-black px-1 py-1">{{ post.title }}</h2>
+                    </div>
                     <!-- Text Summary -->
-                    <p class="card-text mb-2">{{ post.text | slice:":200" }}</p>
-                    <a href="{% url 'post_detail' post.slug %}" class="btn nav-link">Read More &rarr;</a>
+                    <div class="container">
+                        <p class="card-text my-2">{{ post.text | slice:":200" }}</p>
+                        <a href="{% url 'post_detail' post.slug %}" class="mb-3 text-center nav-link">Read More &rarr;</a>
+                    </div>
                 </div>
                 <div class="card-footer text-muted">
                     Posted on {{ post.published_date }} by

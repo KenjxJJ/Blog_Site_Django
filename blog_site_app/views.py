@@ -88,7 +88,6 @@ def update_profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            print(profile_form.instance.image_avatar)
             messages.success(request, ('Your profile was successfully updated!'))
             return redirect('home')
         else:
@@ -103,21 +102,17 @@ def update_profile(request):
 
 # Add new blog post
 def add_new_blog_post(request):
-    # blog_post = get_object_or_404(BlogPost, slug = slug)   
-    new_blog_post  = None 
-
     if request.method == 'POST':
         new_blog_post_form = BlogPostForm(data = request.POST)
         
         if new_blog_post_form.is_valid():
             # Create blog_post object but don't save to database
             n = new_blog_post_form.save(commit=False)
-
             # Add the current loggedin user
             n.author = request.user
-
             n.slug = slugify(n.title, allow_unicode=True)
            
+           # Save all new info to the database
             n.save()
            # Alert for confirmation(next step)
             return redirect('home')    

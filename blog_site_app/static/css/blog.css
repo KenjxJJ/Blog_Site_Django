@@ -43,6 +43,10 @@ h3 {
   color: brown;
 }
 
+.post-title{
+  background-color: #ffffff9a !important;
+}
+
 /*  Form formatting */
 p input,
 p textarea {
@@ -77,7 +81,7 @@ p label {
 }
 
 p button,
-p button[type="submit"] {
+p button[type="submit"]{
   width: auto;
   padding: 9px 15px;
   background: #cccccc;
@@ -85,6 +89,14 @@ p button[type="submit"] {
   font-size: 14px;
   color: #ffffff;
 }
+
+p > input[type="file"] {
+  width: 70%;
+  padding: 9px 15px;
+  background-color: #dfdfdf;
+  border: none;
+}
+
 button.btn {
   background: brown !important;
   border: none;
@@ -115,7 +127,6 @@ ul.errorlist > li {
 
 footer {
   margin-top: 2rem;
-  color: rgb(14, 14, 14);
-  background-color: rgb(206, 206, 206);
+  background-color: rgba(172, 151, 151, 0.452);
   border-top: 0.05rem solid rgb(229, 229, 229);
 }
