@@ -1,12 +1,13 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import BlogPost
-from .forms import CommentForm, ProfileForm, UserForm
+from .forms import CommentForm, ProfileForm, UserForm, BlogPostForm
 from django.views import generic
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.utils.text import slugify 
 # Create your views here.
 
 class BlogPostList(generic.ListView):
@@ -99,3 +100,29 @@ def update_profile(request):
         'user_form': user_form,
         'profile_form': profile_form
     })
+
+# Add new blog post
+def add_new_blog_post(request):
+    # blog_post = get_object_or_404(BlogPost, slug = slug)   
+    new_blog_post  = None 
+
+    if request.method == 'POST':
+        new_blog_post_form = BlogPostForm(data = request.POST)
+        
+        if new_blog_post_form.is_valid():
+            # Create blog_post object but don't save to database
+            n = new_blog_post_form.save(commit=False)
+
+            # Add the current loggedin user
+            n.author = request.user
+
+            n.slug = slugify(n.title, allow_unicode=True)
+           
+            n.save()
+           # Alert for confirmation(next step)
+            return redirect('home')    
+    else:
+        new_blog_post_form = BlogPostForm()
+
+    return render(request, "blog_site_app/add_new_blog_post.html",
+     {'new_blog_post': new_blog_post_form})

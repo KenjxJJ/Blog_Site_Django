@@ -1,0 +1,27 @@
+{% extends 'blog_site_app/base.html' %}
+
+{% block content %}
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+            <h1 class="my-4 display-4">
+                <span class="brand-name">Blog</span> Time
+                <small class="lead"> Love to share!</small>
+            </h1>
+            <!-- Add new blog post form -->
+
+            <form class="form" method="post">
+                <legend class="lead py-2"> New Blog</legend>
+                {% csrf_token %}
+                {{ new_blog_post.as_p }}
+                <div class="py-3 button-section d-flex justify-content-between">
+                    <a class="nav-link border rounded px-4" href="{% url 'home' %}">&LeftArrow; Back</a>
+                    <button class="btn btn-primary" type="submit">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

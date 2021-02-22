@@ -11,6 +11,16 @@
                 <small class="lead"> Love to share!</small>
             </h1>
 
+            <!-- Add Blog link -->
+            <!-- for authenticated users  -->
+            {% if user.is_authenticated %}
+            <div class="d-flex justify-content-end">
+                <a class="nav-link pr-0" style="text-decoration: underline;" href="{% url 'new_blog_post' %}">
+                    <i class="fa fa-plus"></i>
+                    Add New Blog</a>
+            </div>
+            {% endif %}
+
             <!-- Blog Post -->
             {% for post in blogpost_list %}
             <div class="card mb-4">
