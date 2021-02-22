@@ -20,12 +20,14 @@ div.nav {
   padding: 0.6rem 1.4rem;
 }
 .login-btn:hover,
-.login-btn:focus {
+.login-btn:focus
+ {
   text-decoration: none;
   color: #fff;
   background-color: rgba(165, 42, 42, 0.959);
 }
-.login-btn:active {
+.login-btn:active
+{
   background-color: brown;
   color: white;
   transition: background-color 0.1s ease-in;

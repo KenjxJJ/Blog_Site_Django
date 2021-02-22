@@ -30,7 +30,9 @@
             <a class="nav-link" href="{% url 'home' %}"> Home </a></span>
 
         {% if user.is_authenticated %}
-        <span class="pr-3"> {{ user.username }}</span>
+        <span class="pr-3" >
+            <a href="{% url 'update_profile' %}" title="Click to edit your profile"> {{ user.username }} </a></span>
+        <span class="pr-3"> <img class="border rounded-circle" src="{{ user.profile.image_avatar.url }}" style="height: 45px;" alt="user photo avatar"></span>
         <span class="py-3 mr-3">
             <a class="login-btn" href="{% url 'logout' %}">Log Out
             </a>
