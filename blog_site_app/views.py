@@ -11,8 +11,9 @@ from django.contrib.auth.decorators import login_required
 from django.utils.text import slugify 
 # Create your views here.
 
+# Public view of all posts here
 class BlogPostList(generic.ListView):
-    queryset = BlogPost.objects.filter(status=1).order_by('-published_date')
+    queryset = BlogPost.objects.filter(status=1, active=True).order_by('-published_date')
     template_name = 'blog_site_app/homepage.html'
 
 # Render the single post detail
