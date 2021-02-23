@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, User
+from django.db.models.deletion import CASCADE
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.core.exceptions import ObjectDoesNotExist
@@ -15,6 +16,9 @@ class Profile(models.Model):
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     image_avatar = models.ImageField(upload_to="images/")
+
+    def __str__(self):
+        return self.user
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -37,6 +41,7 @@ class BlogPost(models.Model):
     status = models.IntegerField(choices=STATUS, default=0)
     blog_image_post = models.ImageField(default="default_blog_image.jpg")
     active = models.BooleanField(default=False) # for the admin role to give confirmation
+    isLiked  = models.BooleanField(default=False)
     
     class Meta:
         ordering = ['-published_date']
