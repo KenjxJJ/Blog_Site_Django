@@ -1,8 +1,5 @@
-from django import views
-from django.http import request
-from django.urls import path
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import BlogPost
+from .models import BlogPost, Like
 from .forms import CommentForm, ProfileForm, UserForm, BlogPostForm
 from django.views import generic
 from django.contrib.auth import login, authenticate
@@ -29,7 +26,20 @@ def blogpost_detail(request, slug):
     blog_post = get_object_or_404(BlogPost, slug = slug)
     comments = blog_post.comments.filter(active=True)
     new_comment = None
+    isLiked = None
+    
+    #  Like functionality for authenticated user
+    if request.user.is_authenticated:
+        blog_post_likes = Like.objects.filter(blog_post=blog_post , blog_post_author=request.user)
+        blog_post_likes_count = blog_post_likes.count()
 
+        if int(blog_post_likes_count) > 0:
+            isLiked = blog_post_likes[0]
+        else:
+            isLiked = Like(blog_post=blog_post, blog_post_author = request.user)
+            isLiked.save()
+            # print(isLiked)
+    
     # Every comment posted
     if request.method == 'POST':
         comment_form = CommentForm(data = request.POST)
@@ -49,20 +59,22 @@ def blogpost_detail(request, slug):
     return render(request, template_name, {
             'blog_post' : blog_post,
             'comments' : comments,
+            'isLiked' : isLiked,
             'new_comment' : new_comment,
             'comment_form': comment_form })
 
 # Like request to toggle like and unlike
 def like(request, id):
     blog_post = get_object_or_404(BlogPost, pk = id)
-    # print( blog_post.isLiked)
-
-    #  Check the state of the post's like
-    if blog_post.isLiked:
-        BlogPost.objects.filter(pk=id).update(isLiked=False)       
-    else:
-        BlogPost.objects.filter(pk=id).update(isLiked=True)
+    blog_post_likes = Like.objects.filter(blog_post=blog_post , blog_post_author=request.user)
+    isLiked = blog_post_likes[0]  
     
+    #  Check the state of the post's like
+    if isLiked.isLiked:
+        blog_post_likes.update(isLiked=False)
+    else:
+        blog_post_likes.update(isLiked=True)
+        
     # Maintain same page
     return redirect( 'post_detail', blog_post.slug )
 

@@ -41,7 +41,6 @@ class BlogPost(models.Model):
     status = models.IntegerField(choices=STATUS, default=0)
     blog_image_post = models.ImageField(default="default_blog_image.jpg")
     active = models.BooleanField(default=False) # for the admin role to give confirmation
-    isLiked  = models.BooleanField(default=False)
     
     class Meta:
         ordering = ['-published_date']
@@ -64,3 +63,10 @@ class Comment(models.Model):
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.name)
 
+class Like(models.Model):
+    blog_post_author = models.ForeignKey(User, on_delete=models.CASCADE)
+    blog_post = models.ForeignKey(BlogPost, on_delete=models.CASCADE, related_name='likes')
+    isLiked  = models.BooleanField(default=False)
+
+    def __str__(self):
+        return '{} by {}'.format(self.blog_post, self.blog_post_author)

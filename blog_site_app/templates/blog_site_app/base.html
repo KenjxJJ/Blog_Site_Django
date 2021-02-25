@@ -60,7 +60,7 @@
 
     <!-- Footer -->
     <footer class="pt-2">
-        <div class="container d-flex flex-column pl-4 py-2">
+        <div class="inner-footer mb-n2 container d-flex flex-column pl-4 py-2">
             {% if user.profile.image_avatar and user.is_authenticated %}
             <h1 class="my-2 display-4">
                 <span class="brand-name">Blog</span> Time
@@ -74,6 +74,18 @@
                 <a class="font-italic" href="{% url 'update_profile' %}" title="Click to edit your profile">
                     profile</a>.</span>
             {% endif %}
+            {% if not user.is_authenticated %}
+            <h1 class="my-2 pt-1 pb-2 display-4">
+                <span class="brand-name">Blog</span> Time
+                <small class="lead pt-2 d-block"> Love to share!</small>
+            </h1>
+            <p class="py-3">
+                <span class="">Want to create your first blog? Click
+                    <a class="font-italic font-weight-bold" style="color: brown;" href="{% url 'create_account' %}"> here
+                    </a>to create new account
+                </span>
+            </p>
+            {% endif %}
         </div>
         <div class="mt-3 pt-2 bg-white">
             <p class="mt-1 text-center">Copyright &copy; Blog Time</p>
@@ -81,11 +93,6 @@
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <!-- <script>
-        $('.like-section').on('click', function () {
-            $(this).find("i").toggleClass("far fas border-heart selected-heart");
-        })
-    </script> -->
 </body>
 
 </html>
