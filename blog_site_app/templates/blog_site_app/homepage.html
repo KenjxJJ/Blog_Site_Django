@@ -2,48 +2,46 @@
 
 {% block content %}
 <!-- Page Content -->
-<div class="container">
-    <div class="row">
+<main class="container">
+    <div class="row justify-content-between align-items-center py-3 px-3">
         <!-- Blog Entries Column -->
-        <div class="col-md-8">
-            <h1 class="my-4 display-4">
-                <span class="brand-name">Blog</span> Time
-                <small class="lead"> Love to share!</small>
-            </h1>
-
-            <!-- Add Blog link -->
-            <!-- for authenticated users  -->
-            {% if user.is_authenticated %}
-            <div class="d-flex justify-content-end">
-                <a class="nav-link pr-0" style="text-decoration: underline;"
-                title="Click to see all your blog posts" href="{% url 'my_blog_posts' %}">
-                    <i class="fa fa-book"></i>
-                    My Blogs</a>
-            </div>
-            {% endif %}
-
-            <!-- Blog Post -->
-            {% for post in blogpost_list %}
-            <div class="card mb-4 shadow">
-                <div class="">
-                    <!-- Post title -->
-                    <div class="d-flex px-1 justify-content-between align-items-center" style="height: 220px; 
-                        background-image: url('{{ MEDIA_URL}}images/{{ post.blog_image_post }}')" />
-                        <h2 class="post-title card-title text-black px-1 py-1">{{ post.title }}</h2>
-                    </div>
-                    <!-- Text Summary -->
-                    <div class="container">
-                        <p class="card-text my-2">{{ post.text | slice:":200" }}</p>
-                        <a href="{% url 'post_detail' post.slug %}" class="mb-3 text-center nav-link">Read More &rarr;</a>
-                    </div>
+        <h1 class="my-4 display-4">
+            <span class="brand-name">Blog</span> Time
+            <small class="lead"> Love to share!</small>
+        </h1>
+        <!-- Add Blog link -->
+        <!-- for authenticated users  -->
+        {% if user.is_authenticated %}
+        <div class="d-flex justify-content-end py-2">
+            <a class="nav-link pr-0" style="text-decoration: underline;" title="Click to see all your blog posts"
+                href="{% url 'my_blog_posts' %}">
+                <i class="fa fa-book"></i>
+                My Blogs</a>
+        </div>
+        {% endif %}
+    </div>
+    <div class="row">
+        <!-- Blog Post -->
+        {% for post in blogpost_list %}
+        <div class="col-md-8 col-lg-6 py-2">
+            <div class="card shadow">
+                <!-- Post title -->
+                <div class="d-flex px-1 justify-content-between align-items-center" style="height: 220px; 
+                        background-image: url('{{ MEDIA_URL}}images/{{ post.blog_image_post }}')">
+                    <h2 class="post-title card-title text-black px-1 py-1">{{ post.title }}</h2>
+                </div>
+                <!-- Text Summary -->
+                <div class="container">
+                    <p class="card-text py-2">{{ post.text | slice:":160" }}</p>
+                    <a href="{% url 'post_detail' post.slug %}" class="mb-3 text-center nav-link">Read More &rarr;</a>
                 </div>
                 <div class="card-footer text-muted">
                     Posted on {{ post.published_date }} by
                     <span class="text-primary">{{ post.author }}</span>
                 </div>
             </div>
-            {% endfor %}
         </div>
+        {% endfor %}
     </div>
-</div>
+</main>
 {% endblock %}

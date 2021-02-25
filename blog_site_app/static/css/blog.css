@@ -138,12 +138,30 @@ ul.errorlist > li {
   font-size: 18px;
 }
 
+/* 
+* Main content
+ */
+main{
+   min-height: 37vh;
+}
+
+.card {
+  min-height: 23rem;
+}
+
+/* 
+* Footer
+ */
 footer {
   margin-top: 2rem;
-  background-color: rgba(172, 151, 151, 0.452);
+  background-color: rgba(172, 151, 151, 0.548);
   border-top: 0.05rem solid rgb(229, 229, 229);
 }
 
 .inner-footer{
   min-height: 3rem;
+}
+
+.copyright{
+  background-color: rgba(172, 151, 151, 0.678);
 }

@@ -132,6 +132,7 @@ def update_profile(request):
     })
 
 # Add new blog post
+@login_required
 def add_new_blog_post(request):
     if request.method == 'POST':
         new_blog_post_form = BlogPostForm(data = request.POST)
@@ -155,6 +156,7 @@ def add_new_blog_post(request):
 
 
 #  Retrieve all single posts based on single user
+@login_required
 def single_user_blog_posts(request):
     queryset = BlogPost.objects.filter(author=request.user).order_by('-published_date')
     template_name = 'blog_site_app/single_user_posts.html'
@@ -164,6 +166,7 @@ def single_user_blog_posts(request):
     })
 
 # Remove blog post
+@login_required
 def blog_post_remove(request, slug):
     blog_post = get_object_or_404(BlogPost, slug=slug)
     blog_post.delete()
