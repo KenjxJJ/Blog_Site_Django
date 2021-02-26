@@ -19,13 +19,13 @@
                     <br> Waiting for approval by the admin.</p>
                 </div>
                 <div class="container">
-                    <p class="py-3">>&leftarrow;
+                    <p class="py-3">&leftarrow;
                         <a style="color: brown;font-weight: bold;" href="{% url 'my_blog_posts' %}">Go to My Blogs</a>
                     </p>
                 </div>
                 {% else %}
                 <!-- Add new blog post form -->
-                <form class="form" method="post">
+                <form class="form" method="post" enctype="multipart/form-data">
                     <legend class="lead py-2"> New Blog</legend>
                     {% csrf_token %}
                     {{ new_blog_post_form.as_p }}

@@ -39,7 +39,7 @@ class BlogPost(models.Model):
     slug = models.SlugField(max_length=150, unique=True)
     published_date = models.DateField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
-    blog_image_post = models.ImageField(default="default_blog_image.jpg")
+    blog_image_post = models.ImageField(default="images/default_blog_image.jpg", upload_to="images/")
     active = models.BooleanField(default=False) # for the admin role to give confirmation
     
     class Meta:

@@ -137,7 +137,7 @@ def add_new_blog_post(request):
     new_blog_post_created = None
 
     if request.method == 'POST':
-        new_blog_post_form = BlogPostForm(data = request.POST)
+        new_blog_post_form = BlogPostForm( request.POST, request.FILES )
         
         if new_blog_post_form.is_valid():
         # Create blog_post object but don't save to database
