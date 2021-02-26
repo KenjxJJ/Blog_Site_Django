@@ -10,17 +10,32 @@
                 <span class="brand-name">Blog</span> Time
                 <small class="lead"> Love to share!</small>
             </h1>
-            <!-- Add new blog post form -->
 
-            <form class="form" method="post">
-                <legend class="lead py-2"> New Blog</legend>
-                {% csrf_token %}
-                {{ new_blog_post.as_p }}
-                <div class="py-3 button-section d-flex justify-content-between">
-                    <a class="nav-link border rounded px-4" href="{% url 'my_blog_posts' %}">&LeftArrow; Back</a>
-                    <button class="btn btn-primary" type="submit">Save changes</button>
+            <!-- Alert for new post created, waiting for approval -->
+            {% if new_blog_post_created %}
+            <div class="card-body p-1">
+                <div class="alert alert-success text-center my-4">
+                    New Blog Created!!
+                    <br> Waiting for approval by the admin.</p>
                 </div>
-            </form>
+                <div class="container">
+                    <p class="py-3">>&leftarrow;
+                        <a style="color: brown;font-weight: bold;" href="{% url 'my_blog_posts' %}">Go to My Blogs</a>
+                    </p>
+                </div>
+                {% else %}
+                <!-- Add new blog post form -->
+                <form class="form" method="post">
+                    <legend class="lead py-2"> New Blog</legend>
+                    {% csrf_token %}
+                    {{ new_blog_post_form.as_p }}
+                    <div class="py-3 button-section d-flex justify-content-between">
+                        <a class="nav-link border rounded px-4" href="{% url 'my_blog_posts' %}">&LeftArrow; Back</a>
+                        <button class="btn btn-primary" type="submit">Save changes</button>
+                    </div>
+                </form>
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>

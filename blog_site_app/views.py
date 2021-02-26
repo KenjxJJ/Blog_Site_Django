@@ -134,25 +134,29 @@ def update_profile(request):
 # Add new blog post
 @login_required
 def add_new_blog_post(request):
+    new_blog_post_created = None
+
     if request.method == 'POST':
         new_blog_post_form = BlogPostForm(data = request.POST)
         
         if new_blog_post_form.is_valid():
-            # Create blog_post object but don't save to database
-            n = new_blog_post_form.save(commit=False)
-            # Add the current loggedin user
-            n.author = request.user
-            n.slug = slugify(n.title, allow_unicode=True)
-           
-           # Save all new info to the database
-            n.save()
-           # Alert for confirmation(next step)
-            return redirect('home')    
+        # Create blog_post object but don't save to database
+            new_blog_post_created = new_blog_post_form.save(commit=False)
+        # Add the current loggedin user
+            new_blog_post_created.author = request.user
+            new_blog_post_created.slug = slugify(new_blog_post_created.title, allow_unicode=True)
+        
+        # Save all new info to the database
+            new_blog_post_created.save()
+        # Alert for confirmation(next step)
+        #check add_new_blog_post template
+    
     else:
         new_blog_post_form = BlogPostForm()
 
     return render(request, "blog_site_app/add_new_blog_post.html",
-     {'new_blog_post': new_blog_post_form})
+     {'new_blog_post_form': new_blog_post_form,
+     'new_blog_post_created': new_blog_post_created})
 
 
 #  Retrieve all single posts based on single user
