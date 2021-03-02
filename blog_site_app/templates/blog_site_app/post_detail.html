@@ -8,7 +8,12 @@
                 <h1>{% block title %}
                     {{ blog_post.title }}
                     {% endblock title %}</h1>
-                <p class=" text-muted pb-3">{{ blog_post.author }} | {{ blog_post.published_date }}</p>
+                <div class="info d-flex justify-content-between">
+                    <p class=" text-muted pb-3">{{ blog_post.author }} | {{ blog_post.published_date }} </p>
+                    {% if user.is_authenticated and blog_post.author == request.user %}
+                    <p class="mr-0"><a href="{% url 'edit_blog_post' blog_post.slug %}">Edit</a></p>
+                    {% endif %}
+                </div>
                 <p class="card-text text-justify">{{ blog_post.text | safe }}</p>
             </div>
             <!-- Visible to logged-in users -->
@@ -18,12 +23,12 @@
                     {% if isLiked.isLiked %}
                     <section class="like-section">
                         <a href="{% url 'like' blog_post.id %}"><i class="fas fa-heart border-heart" aria-hidden="true">
-                            Liked</i></a>
+                                Liked</i></a>
                     </section>
                     {% else %}
                     <section class="like-section">
                         <a href="{% url 'like' blog_post.id %}"><i class="far fa-heart border-heart" aria-hidden="true">
-                            Like</i></a>
+                                Like</i></a>
                     </section>
                     {% endif %}
                     <section class="comment-section">

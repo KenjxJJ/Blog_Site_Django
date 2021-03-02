@@ -1,0 +1,39 @@
+{% extends 'blog_site_app/base.html' %}
+
+{% block content %}
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+            <h1 class="my-4 display-4">
+                <span class="brand-name">Blog</span> Time
+                <small class="lead"> Love to share!</small>
+            </h1>
+            {% if blog_post_edited %}
+            <div class="card-body p-1">
+                <div class="alert alert-success text-center my-4">
+                    <p>Blog Edited successfully.</p>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="container d-flex justify-content-end">
+                <p class="py-1">&leftarrow;
+                    <a style="color: brown;font-weight: bold;" href="{% url 'my_blog_posts' %}">Go to My Blogs</a>
+                </p>
+            </div>
+            <!-- Edit blog post form -->
+            <form class="form my-n2" method="post" enctype="multipart/form-data">
+                <legend class="lead mb-2"> Edit Blog</legend>
+                {% csrf_token %}
+                {{ edit_blog_post_form.as_p }}
+                <div class="py-3 button-section d-flex justify-content-between">
+                    <a class="nav-link border rounded px-4" href="{% url 'post_detail' blog_post.slug %}">&LeftArrow; Back</a>
+                    <button class="btn btn-primary" type="submit">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

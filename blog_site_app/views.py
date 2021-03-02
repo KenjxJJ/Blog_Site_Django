@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import BlogPost, Like
-from .forms import CommentForm, ProfileForm, UserForm, BlogPostForm
+from .forms import CommentForm, ProfileForm, UserForm, BlogPostForm, EditBlogPostForm
 from django.views import generic
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
@@ -175,3 +175,37 @@ def blog_post_remove(request, slug):
     blog_post = get_object_or_404(BlogPost, slug=slug)
     blog_post.delete()
     return redirect('my_blog_posts')
+
+
+@login_required
+@transaction.atomic
+def edit_blog_post(request, slug):
+    blog_post_edited = None
+
+    if request.method == 'POST':
+        edit_blog_post_form = EditBlogPostForm(request.POST, request.FILES)
+        
+        # Save the edited then blog post
+        if edit_blog_post_form.is_valid():
+           blog_post_edited = edit_blog_post_form.save(commit=False)
+
+           # Save the current user
+           blog_post_edited.author = request.user
+           blog_post_edited.slug = slugify(blog_post_edited.title, allow_unicode=True)
+           
+           # Save to database
+           blog_post_edited.save()
+           messages.success(request, ('Your blog was successfully updated!'))
+           return redirect('my_blog_posts')
+        else:
+           messages.error(request, ('Please correct the error below.'))
+    else:
+        #  Get blog post
+        blog_post = BlogPost.objects.get(slug=slug)
+        edit_blog_post_form = BlogPostForm(instance=blog_post)
+
+    return render(request, 'blog_site_app/edit_blog_post.html',
+        {'edit_blog_post_form': edit_blog_post_form,
+        'blog_post_edited': blog_post_edited,
+         'blog_post' : blog_post         
+        })

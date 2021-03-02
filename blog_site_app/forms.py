@@ -23,3 +23,8 @@ class BlogPostForm(forms.ModelForm):
     class Meta:
         model = BlogPost
         fields = ("title", "text","status","blog_image_post",)
+
+class EditBlogPostForm(forms.ModelForm):
+    class Meta:
+        model = BlogPost
+        fields = ("title", "text","status","blog_image_post",)
